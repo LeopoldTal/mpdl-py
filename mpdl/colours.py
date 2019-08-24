@@ -4,4 +4,4 @@
 from enum import Enum
 
 class COLOURS(Enum):
-	BLACK, RED, BLUE, YELLOW, WHITE = 0, 1, 2, 3, 4
+	BLACK, WHITE, RED, BLUE, YELLOW = 0, 1, 2, 3, 4

@@ -14,13 +14,13 @@ class TestParse:
 		instructions = parser.parse('C1')
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
-		assert instructions[0].colour == COLOURS.RED
+		assert instructions[0].colour == COLOURS.WHITE
 	
 	def test_ignores_space(self):
 		instructions = parser.parse('\n\n\r\t    C1 \n\v')
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
-		assert instructions[0].colour == COLOURS.RED
+		assert instructions[0].colour == COLOURS.WHITE
 	
 	def test_syntax_error_on_unknown(self):
 		with pytest.raises(SyntaxError):
@@ -37,13 +37,13 @@ class TestPaint:
 		instructions = parser.parse('c1 c2 c3 c4')
 		assert len(instructions) == 4
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
-		assert instructions[0].colour == COLOURS.RED
+		assert instructions[0].colour == COLOURS.WHITE
 		assert isinstance(instructions[1], mpdl_instruction.Paint)
-		assert instructions[1].colour == COLOURS.BLUE
+		assert instructions[1].colour == COLOURS.RED
 		assert isinstance(instructions[2], mpdl_instruction.Paint)
-		assert instructions[2].colour == COLOURS.YELLOW
+		assert instructions[2].colour == COLOURS.BLUE
 		assert isinstance(instructions[3], mpdl_instruction.Paint)
-		assert instructions[3].colour == COLOURS.WHITE
+		assert instructions[3].colour == COLOURS.YELLOW
 	
 	def test_non_numeric_colour(self):
 		with pytest.raises(SyntaxError):
