@@ -15,3 +15,12 @@ class InvalidColourError(ParseError):
 
 class OutOfRangeError(ParseError):
 	pass
+
+class RuntimeError(MpdlException):
+	pass
+
+class IncompletePaintingError(RuntimeError):
+	pass
+
+class NoRectangleError(RuntimeError):
+	pass

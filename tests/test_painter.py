@@ -5,7 +5,7 @@ import pytest
 from mpdl import painter
 from mpdl.colours import COLOURS
 from mpdl.defaults import DEFAULT_CANVAS_SIZE
-from mpdl.interpreter import PaintingRectangle
+from mpdl.rectangles import PaintingRectangle
 
 x, K, R, Y, B = None, COLOURS.BLACK, COLOURS.RED, COLOURS.YELLOW, COLOURS.BLUE
 
