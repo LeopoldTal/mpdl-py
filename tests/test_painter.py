@@ -4,7 +4,6 @@
 import pytest
 from mpdl import painter
 from mpdl.colours import COLOURS
-from mpdl.defaults import DEFAULT_CANVAS_SIZE
 from mpdl.rectangles import PaintingRectangle
 
 x, K, R, Y, B = None, COLOURS.BLACK, COLOURS.RED, COLOURS.YELLOW, COLOURS.BLUE
@@ -12,13 +11,13 @@ x, K, R, Y, B = None, COLOURS.BLACK, COLOURS.RED, COLOURS.YELLOW, COLOURS.BLUE
 class TestPaintRectangles:
 	def test_paint_nothing(self):
 		expected = [
-			[x] * DEFAULT_CANVAS_SIZE
-		] * DEFAULT_CANVAS_SIZE
-		assert painter.paint_rectangles([]) == expected
+			[x] * 256
+		] * 256
+		assert painter.paint_rectangles([], 256, 42) == expected
 	
 	def test_canvas_size(self):
 		expected = [[x]]
-		assert painter.paint_rectangles([], 1) == expected
+		assert painter.paint_rectangles([], 1, 3) == expected
 	
 	def test_paint_rectangle_no_border(self):
 		expected = [

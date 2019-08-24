@@ -4,12 +4,9 @@
 from .colours import COLOURS
 from .defaults import DEFAULT_CANVAS_SIZE, DEFAULT_BORDER_WIDTH
 
-def paint_rectangles(
-		rectangles,
-		canvas_size = DEFAULT_CANVAS_SIZE,
-		border_width = DEFAULT_BORDER_WIDTH
-	):
-	"""paint_rectangles(rectangles) -> list of list of colours
+def paint_rectangles(rectangles, canvas_size, border_width):
+	"""paint_rectangles(rectangles, canvas_size, border_width)
+		-> list of list of colours
 	
 	Draw each rectangle with fill and stroke into a pixel array"""
 	pixels = [
