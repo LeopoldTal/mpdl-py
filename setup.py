@@ -29,7 +29,7 @@ setup(
 	install_requires=requirements,
 	entry_points={
 		"console_scripts": [
-			# TODO: "mpdl = mpdl:main"
+			# TODO: "mpdl = mpdl_console:main"
 		]
 	},
 	test_suite="tests",
