@@ -35,5 +35,6 @@ setup(
 		]
 	},
 	test_suite="tests",
+	setup_requires=["pytest-runner"],
 	tests_require=test_requirements,
 )
