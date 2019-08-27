@@ -3,7 +3,7 @@
 
 import pytest
 import mpdl
-from mpdl.mpdl_exception import MpdlException
+from mpdl import InterpreterFailureException
 
 class TestMpdl:
 	def test_full_run(self):
@@ -16,4 +16,5 @@ class TestMpdl:
 			assert actual == expected
 	
 	def test_failure(self):
-		assert mpdl.run('v50', 10, 0) == None
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('v50', 10, 0)

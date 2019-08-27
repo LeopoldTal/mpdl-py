@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+from sys import stderr
 from .defaults import DEFAULT_CANVAS_SIZE, DEFAULT_BORDER_WIDTH, DEFAULT_OUT_FILE
-from .mpdl import run
+from .mpdl import run, InterpreterFailureException
 
 def main():
 	parser = argparse.ArgumentParser(
@@ -35,11 +36,12 @@ def main():
 	
 	with open(args.source_file) as h_in:
 		source = h_in.read()
-		image = run(source, args.size, args.border)
-	
-	if image is not None:
-		with open(args.out, 'w') as h_out:
-			h_out.write(image)
+		try:
+			image = run(source, args.size, args.border)
+			with open(args.out, 'w') as h_out:
+				h_out.write(image)
+		except InterpreterFailureException as e:
+			stderr.write(str(e))
 
 if __name__ == '__main__':
 	main()

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from sys import stderr
 from .mpdl_exception import MpdlException
 from .parser import parse
 from .interpreter import MpdlInterpreter
 from .painter import paint_rectangles
 from .ppm_writer import to_ppm
+
+class InterpreterFailureException(Exception):
+	pass
 
 def run(mpdl_source, canvas_size, border_width):
 	"""run(mpdl_source) -> string
@@ -20,5 +22,6 @@ def run(mpdl_source, canvas_size, border_width):
 		pixel_array = paint_rectangles(rectangles, canvas_size, border_width)
 		painting = to_ppm(pixel_array)
 		return painting
-	except MpdlException as e: # TODO: hmm. throw new exception and catch in main?
-		stderr.write('Error: %s\n' % (e,))
+	except MpdlException as e:
+		# Rethrow with nice description
+		raise InterpreterFailureException('Error: %s\n' % (e,))
