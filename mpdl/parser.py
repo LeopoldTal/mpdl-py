@@ -62,7 +62,7 @@ def parse_vert_split(arg):
 	split_percentage = parse_split_percentage(arg)
 	return VertSplit(split_percentage)
 
-def parse_split_percentage(arg): # TODO: syntax errors, 0-100
+def parse_split_percentage(arg):
 	"""parse_split_percentage(string) -> int"""
 	try:
 		percentage = int(arg)
