@@ -37,8 +37,9 @@ def main():
 		source = h_in.read()
 		image = run(source, args.size, args.border)
 	
-	with open(args.out, 'w') as h_out:
-		h_out.write(image)
+	if image is not None:
+		with open(args.out, 'w') as h_out:
+			h_out.write(image)
 
 if __name__ == '__main__':
 	main()

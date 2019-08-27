@@ -29,6 +29,7 @@ class MpdlInterpreter:
 		
 		if len(self.stack) > 0:
 			raise IncompletePaintingError(
+				# TODO: pluralisation
 				'%d rectangles left unpainted' % (len(self.stack),)
 			)
 		
