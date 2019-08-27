@@ -15,6 +15,7 @@ setup(
 	version="0.1.0",
 	description="Mondrian Painting Description Language interpreter",
 	long_description=readme,
+	url="https://github.com/LeopoldTal/mpdl-py",
 	author="Leopold de Gaillande",
 	author_email="leopold.tal.dg@gmail.com",
 	license="MIT",

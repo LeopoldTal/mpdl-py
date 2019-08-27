@@ -1,5 +1,6 @@
 include LICENSE
 include README.rst
+include mondrian_composition.png
 
 exclude .cache
 recursive-exclude * __pycache__
