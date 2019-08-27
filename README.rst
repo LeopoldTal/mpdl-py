@@ -55,12 +55,18 @@ How to install
 Installing from binaries
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+It's usually easiest to get the package from the pip repository::
+
+    pip install mpdl
 
 Installing from source
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
+To install from source, clone the source repo and run the setup script::
+
+    git clone https://github.com/LeopoldTal/mpdl-py.git
+    cd mpdl-py
+    pip install -e .
 
 Running the tests
 ~~~~~~~~~~~~~~~~~
@@ -72,7 +78,17 @@ Run tests in the root directory with::
 How to use
 ----------
 
-TODO
+Usage::
+
+    mpdl [-o OUT] [-s SIZE] [-b BORDER] path/to/source_file.mpdl
+
+Outputs an ASCII PPM image with colour depth 1.
+
+Arguments:
+
+- ``-o``: Path to output file. Default ``out.ppm``.
+- ``-s``: Side length of square image in pixels. Default 256.
+- ``-b``: Thickness of rectangle borders in pixels. Default 3.
 
 Licence
 -------
@@ -102,5 +118,6 @@ Dependencies
 ~~~~~~~~~~~~
 
 * setuptools
+* argparse
 * pytest
 * unittest
