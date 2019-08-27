@@ -27,13 +27,13 @@ class TestParse:
 			parser.parse('x')
 
 class TestPaint:
-	def test_paint(self):
+	def test_paint_single_rectangle(self):
 		instructions = parser.parse('c1')
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
-		assert instructions[0].colour == COLOURS.RED
+		assert instructions[0].colour == COLOURS.WHITE
 	
-	def test_paint(self):
+	def test_paint_multiple_rectangles(self):
 		instructions = parser.parse('c1 c2 c3 c4')
 		assert len(instructions) == 4
 		assert isinstance(instructions[0], mpdl_instruction.Paint)

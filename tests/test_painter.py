@@ -8,6 +8,37 @@ from mpdl.rectangles import PaintingRectangle
 
 x, K, R, Y, B = None, COLOURS.BLACK, COLOURS.RED, COLOURS.YELLOW, COLOURS.BLUE
 
+class TestRectangleEquality:
+	def test_equal(self):
+		r1 = PaintingRectangle(2, 3, 4, 5, R)
+		r2 = PaintingRectangle(2, 3, 4, 5, R)
+		assert r1 == r2
+	
+	def test_different_left(self):
+		r1 = PaintingRectangle(2, 3, 4, 5, R)
+		r2 = PaintingRectangle(3, 3, 4, 5, R)
+		assert r1 != r2
+	
+	def test_different_right(self):
+		r1 = PaintingRectangle(2, 3, 4, 5, R)
+		r2 = PaintingRectangle(2, 3, 10, 5, R)
+		assert r1 != r2
+	
+	def test_different_top(self):
+		r1 = PaintingRectangle(2, 3, 4, 5, R)
+		r2 = PaintingRectangle(2, 1, 4, 5, R)
+		assert r1 != r2
+	
+	def test_different_bottom(self):
+		r1 = PaintingRectangle(2, 3, 4, 6, R)
+		r2 = PaintingRectangle(2, 3, 4, 5, R)
+		assert r1 != r2
+	
+	def test_different_colour(self):
+		r1 = PaintingRectangle(2, 3, 4, 5, R)
+		r2 = PaintingRectangle(2, 3, 4, 5, Y)
+		assert r1 != r2
+
 class TestPaintRectangles:
 	def test_paint_nothing(self):
 		expected = [
