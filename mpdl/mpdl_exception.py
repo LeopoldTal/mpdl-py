@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 class MpdlException(Exception):
-	pass
+	def __init__(self, value, context):
+		Exception.__init__(self, '%s\n%s' % (value, context))
 
 class ParseError(MpdlException):
 	pass

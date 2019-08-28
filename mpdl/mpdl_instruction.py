@@ -7,6 +7,9 @@ class TracingContext:
 	def __init__(self, line_number, col_number):
 		self.line_number = line_number
 		self.col_number = col_number
+	
+	def __str__(self):
+		return 'at line %d, col %d' % (self.line_number, self.col_number)
 
 class MpdlInstruction:
 	"""Abstract MPDL instruction"""

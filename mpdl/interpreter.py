@@ -30,7 +30,8 @@ class MpdlInterpreter:
 		if len(self.stack) > 0:
 			raise IncompletePaintingError(
 				# TODO: pluralisation
-				'%d rectangles left unpainted' % (len(self.stack),)
+				'%d rectangles left unpainted' % (len(self.stack),),
+				None # FIXME: context
 			)
 		
 		return self.painted_rectangles
@@ -42,6 +43,7 @@ class MpdlInterpreter:
 		instruction = self.instructions.pop(0)
 		if len(self.stack) == 0:
 			raise NoRectangleError(
-			'No rectangle available for command %s' % (instruction,)
+			'No rectangle available for command %s' % (instruction,),
+			None # FIXME: context
 		)
 		instruction.apply(self.stack, self.painted_rectangles)

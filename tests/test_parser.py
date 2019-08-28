@@ -40,7 +40,9 @@ class TestParse:
 		assert instructions[2].col_number == 5
 	
 	def test_syntax_error_on_unknown(self):
-		with pytest.raises(SyntaxError):
+		expected_error_trace = """Unknown command: x
+at line 1, col 1"""
+		with pytest.raises(SyntaxError, match = expected_error_trace) as e:
 			Parser('x').parse()
 
 class TestPaint:

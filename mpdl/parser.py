@@ -71,7 +71,10 @@ class SingleInstructionParser:
 		if command in commands:
 			return commands[command](arg)
 		else:
-			raise SyntaxError('Unknown command: %s' % (statement,))
+			raise SyntaxError(
+				'Unknown command: %s' % (statement,),
+				self.context
+			)
 
 	# Painting
 
@@ -85,14 +88,23 @@ class SingleInstructionParser:
 		try:
 			colour_code = int(arg)
 		except ValueError:
-			raise SyntaxError('Not a colour code: %s' % (arg,))
+			raise SyntaxError(
+				'Not a colour code: %s' % (arg,),
+				self.context
+			)
 	
 		try:
 			colour = COLOURS(colour_code)
 		except ValueError:
-			raise InvalidColourError('Invalid colour: %d' % (colour_code,))
+			raise InvalidColourError(
+				'Invalid colour: %d' % (colour_code,),
+				self.context
+			)
 		if colour == COLOURS.BLACK:
-			raise InvalidColourError('Invalid colour: %d' % (colour_code,))
+			raise InvalidColourError(
+				'Invalid colour: %d' % (colour_code,),
+				self.context
+			)
 	
 		return colour
 
@@ -113,9 +125,15 @@ class SingleInstructionParser:
 		try:
 			percentage = int(arg)
 		except ValueError:
-			raise SyntaxError('Not an integer: %s' % (arg,))
+			raise SyntaxError(
+				'Not an integer: %s' % (arg,),
+				self.context
+			)
 	
 		if percentage < 0 or percentage > 100:
-			raise OutOfRangeError('Out of 0-100 range: %d' % (percentage,))
+			raise OutOfRangeError(
+				'Out of 0-100 range: %d' % (percentage,),
+				self.context
+			)
 	
 		return percentage
