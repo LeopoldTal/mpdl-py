@@ -52,8 +52,8 @@ run with canvas size 256px and border width 3px, outputs
 How to install
 --------------
 
-Installing from binaries
-~~~~~~~~~~~~~~~~~~~~~~~~
+Installing from distribution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It's usually easiest to get the package from the pip repository::
 
@@ -74,6 +74,10 @@ Running the tests
 Run tests in the root directory with::
 
     py.test
+
+To generate a coverage report::
+
+    py.test --cov --cov-branch --cov-report=term-missing
 
 How to use
 ----------
@@ -117,7 +121,12 @@ MPDL is the work of `Arnaud Marguerat`_.
 Dependencies
 ~~~~~~~~~~~~
 
-* setuptools
-* argparse
-* pytest
-* unittest
+* setuptools_
+* argparse_
+* pytest_
+* unittest_
+
+.. _setuptools: https://setuptools.readthedocs.io/en/latest/
+.. _argparse: https://docs.python.org/3/library/argparse.html
+.. _pytest: https://docs.pytest.org/en/latest/
+.. _unittest: https://docs.python.org/3/library/unittest.html
