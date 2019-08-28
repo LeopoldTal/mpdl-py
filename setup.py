@@ -12,7 +12,7 @@ test_requirements = ["pytest"]
 
 setup(
 	name="mpdl",
-	version="0.1.0",
+	version="1.0.0",
 	description="Mondrian Painting Description Language interpreter",
 	long_description=readme,
 	url="https://github.com/LeopoldTal/mpdl-py",
@@ -20,7 +20,7 @@ setup(
 	author_email="leopold.tal.dg@gmail.com",
 	license="MIT",
 	classifiers=[
-		"Development Status :: 2 - Pre-Alpha",
+		"Development Status :: 3 - Alpha",
 		"Intended Audience :: Developers",
 		"License :: OSI Approved :: MIT License",
 		"Natural Language :: English",
