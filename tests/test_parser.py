@@ -2,29 +2,30 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from mpdl import mpdl_instruction, parser
+from mpdl import mpdl_instruction
 from mpdl.colours import COLOURS
 from mpdl.mpdl_exception import InvalidColourError, OutOfRangeError, SyntaxError
+from mpdl.parser import Parser
 
 class TestParse:
 	def test_empty_program(self):
-		assert parser.parse('') == []
+		assert Parser('').parse() == []
 	
 	def test_ignores_case(self):
-		instructions = parser.parse('C1')
+		instructions = Parser('C1').parse()
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
 		assert instructions[0].colour == COLOURS.WHITE
 	
 	def test_ignores_space(self):
-		instructions = parser.parse('\n\n\r\t    C1 \n\v')
+		instructions = Parser('\n\n\r\t    C1 \n\v').parse()
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
 		assert instructions[0].colour == COLOURS.WHITE
 	
 	def test_line_number(self):
 		source = 'v50\nh40 c1'
-		instructions = parser.parse(source)
+		instructions = Parser(source).parse()
 		assert len(instructions) == 3
 		assert instructions[0].line_number == 1
 		assert instructions[1].line_number == 2
@@ -32,7 +33,7 @@ class TestParse:
 	
 	def test_col_number(self):
 		source = '  v50\nh40 c1'
-		instructions = parser.parse(source)
+		instructions = Parser(source).parse()
 		assert len(instructions) == 3
 		assert instructions[0].col_number == 3
 		assert instructions[1].col_number == 1
@@ -40,17 +41,17 @@ class TestParse:
 	
 	def test_syntax_error_on_unknown(self):
 		with pytest.raises(SyntaxError):
-			parser.parse('x')
+			Parser('x').parse()
 
 class TestPaint:
 	def test_paint_single_rectangle(self):
-		instructions = parser.parse('c1')
+		instructions = Parser('c1').parse()
 		assert len(instructions) == 1
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
 		assert instructions[0].colour == COLOURS.WHITE
 	
 	def test_paint_multiple_rectangles(self):
-		instructions = parser.parse('c1 c2 c3 c4')
+		instructions = Parser('c1 c2 c3 c4').parse()
 		assert len(instructions) == 4
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
 		assert instructions[0].colour == COLOURS.WHITE
@@ -63,19 +64,19 @@ class TestPaint:
 	
 	def test_non_numeric_colour(self):
 		with pytest.raises(SyntaxError):
-			parser.parse('cc')
+			Parser('cc').parse()
 	
 	def test_colour_out_of_range(self):
 		with pytest.raises(InvalidColourError):
-			parser.parse('c5')
+			Parser('c5').parse()
 	
 	def test_cannot_paint_black(self):
 		with pytest.raises(InvalidColourError):
-			parser.parse('c0')
+			Parser('c0').parse()
 
 class TestSplit:
 	def test_split(self):
-		instructions = parser.parse('v50 h25')
+		instructions = Parser('v50 h25').parse()
 		assert len(instructions) == 2
 		assert isinstance(instructions[0], mpdl_instruction.VertSplit)
 		assert instructions[0].split_percentage == 50
@@ -84,12 +85,12 @@ class TestSplit:
 	
 	def test_non_numeric_percentage(self):
 		with pytest.raises(SyntaxError):
-			parser.parse('v50%')
+			Parser('v50%').parse()
 	
 	def test_negative_percentage(self):
 		with pytest.raises(OutOfRangeError):
-			parser.parse('v-1')
+			Parser('v-1').parse()
 	
 	def test_too_large_percentage(self):
 		with pytest.raises(OutOfRangeError):
-			parser.parse('v101')
+			Parser('v101').parse()
