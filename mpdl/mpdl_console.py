@@ -6,7 +6,7 @@ from sys import stderr
 from .defaults import DEFAULT_CANVAS_SIZE, DEFAULT_BORDER_WIDTH, DEFAULT_OUT_FILE
 from .mpdl import run, InterpreterFailureException
 
-def main():
+def parse_args():
 	parser = argparse.ArgumentParser(
 		description = "Mondrian Painting Description Language interpreter"
 	)
@@ -32,17 +32,34 @@ def main():
 			% (DEFAULT_BORDER_WIDTH,)
 	)
 	
-	args = parser.parse_args()
+	return parser.parse_args()
+
+def get_source(source_file):
+	try:
+		return open(source_file)
+	except IOError:
+		stderr.write('Couldn\'t read source file %s\n' % (source_file,))
+		exit(1)
+
+def write_image(out_file, image):
+	try:
+		with open(out_file, 'w') as h_out:
+			h_out.write(image)
+	except IOError:
+		stderr.write('Couldn\'t write to output file %s\n' % (out_file,))
+		exit(1)
+
+def main():
+	args = parse_args()
 	
-	# TODO: catch and print nice error messages on file open failure
-	with open(args.source_file) as h_in:
+	with get_source(args.source_file) as h_in:
 		source = h_in.read()
 		try:
 			image = run(source, args.size, args.border)
-			with open(args.out, 'w') as h_out:
-				h_out.write(image)
 		except InterpreterFailureException as e:
 			stderr.write(str(e))
+			exit(1)
+		write_image(args.out, image)
 
 if __name__ == '__main__':
 	main()
