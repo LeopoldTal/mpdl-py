@@ -3,15 +3,30 @@
 
 from .rectangles import BlankRectangle, PaintingRectangle
 
+class TracingContext:
+	def __init__(self, line_number, col_number):
+		self.line_number = line_number
+		self.col_number = col_number
+
 class MpdlInstruction:
 	"""Abstract MPDL instruction"""
-	pass # TODO: add tracing info
+	def __init__(self, tracing_context):
+		self.context = tracing_context
+	
+	@property
+	def line_number(self):
+		return self.context.line_number
+	
+	@property
+	def col_number(self):
+		return self.context.col_number
 
 class VertSplit(MpdlInstruction):
 	"""VertSplit(split_percentage) -> MPDL instruction
 	Split a rectangle vertically:
 	split_percentage% on the left, 100-split_percentage% on the right"""
-	def __init__(self, split_percentage):
+	def __init__(self, split_percentage, context = None):
+		MpdlInstruction.__init__(self, context)
 		self.split_percentage = split_percentage
 	
 	def __str__(self):
@@ -37,7 +52,8 @@ class HorizSplit(MpdlInstruction):
 	"""HorizSplit(split_percentage) -> MPDL instruction
 	Split a rectangle horizontally:
 	split_percentage% on top, 100-split_percentage% on bottom"""
-	def __init__(self, split_percentage):
+	def __init__(self, split_percentage, context = None):
+		MpdlInstruction.__init__(self, context)
 		self.split_percentage = split_percentage
 	
 	def __str__(self):
@@ -62,7 +78,8 @@ class HorizSplit(MpdlInstruction):
 class Paint(MpdlInstruction):
 	"""Paint(colour) -> MPDL instruction
 	Pop and paint a rectangle one of the preset non-black colours"""
-	def __init__(self, colour):
+	def __init__(self, colour, context = None):
+		MpdlInstruction.__init__(self, context)
 		self.colour = colour
 	
 	def __str__(self):

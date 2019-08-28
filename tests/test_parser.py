@@ -22,6 +22,22 @@ class TestParse:
 		assert isinstance(instructions[0], mpdl_instruction.Paint)
 		assert instructions[0].colour == COLOURS.WHITE
 	
+	def test_line_number(self):
+		source = 'v50\nh40 c1'
+		instructions = parser.parse(source)
+		assert len(instructions) == 3
+		assert instructions[0].line_number == 1
+		assert instructions[1].line_number == 2
+		assert instructions[2].line_number == 2
+	
+	def test_col_number(self):
+		source = '  v50\nh40 c1'
+		instructions = parser.parse(source)
+		assert len(instructions) == 3
+		assert instructions[0].col_number == 3
+		assert instructions[1].col_number == 1
+		assert instructions[2].col_number == 5
+	
 	def test_syntax_error_on_unknown(self):
 		with pytest.raises(SyntaxError):
 			parser.parse('x')
