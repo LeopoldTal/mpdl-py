@@ -34,6 +34,7 @@ def main():
 	
 	args = parser.parse_args()
 	
+	# TODO: catch and print nice error messages on file open failure
 	with open(args.source_file) as h_in:
 		source = h_in.read()
 		try:

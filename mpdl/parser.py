@@ -29,7 +29,8 @@ class Parser:
 		if self.current_statement:
 			context = TracingContext(
 				line_number = self.line_number,
-			col_number = self.statement_start_col_number
+				col_number = self.statement_start_col_number,
+				source = self.source
 			)
 			parser = SingleInstructionParser(context)
 			instruction = parser.parse_statement(self.current_statement)

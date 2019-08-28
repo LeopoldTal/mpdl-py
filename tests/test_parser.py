@@ -38,12 +38,28 @@ class TestParse:
 		assert instructions[0].col_number == 3
 		assert instructions[1].col_number == 1
 		assert instructions[2].col_number == 5
-	
+
+class TestErrorTrace:
 	def test_syntax_error_on_unknown(self):
 		expected_error_trace = r"""Unknown command: x
 at line 1, col 1.*"""
 		with pytest.raises(SyntaxError, match = expected_error_trace) as e:
 			Parser('x').parse()
+	
+	def test_context_surrounding_lines(self):
+		source = """v10
+h15 v9
+c1 vv42 c2
+v50
+"""
+		expected_error_trace = r"""
+h15 v9
+c1 vv42 c2
+   ^^^
+"""
+		with pytest.raises(SyntaxError) as e:
+			Parser(source).parse()
+		assert expected_error_trace in str(e.value)
 
 class TestPaint:
 	def test_paint_single_rectangle(self):

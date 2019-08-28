@@ -4,12 +4,31 @@
 from .rectangles import BlankRectangle, PaintingRectangle
 
 class TracingContext:
-	def __init__(self, line_number, col_number):
+	def __init__(self, line_number, col_number, source = ''):
 		self.line_number = line_number
 		self.col_number = col_number
+		self.source = source
 	
 	def __str__(self):
-		return 'at line %d, col %d' % (self.line_number, self.col_number)
+		return 'at line %d, col %d%s' % (
+			self.line_number,
+			self.col_number,
+			self.get_snippet()
+		)
+	
+	def get_snippet(self):
+		if not self.source:
+			return ''
+		
+		lines = self.source.splitlines()
+		surrounding_lines = lines[self.line_number - 2:self.line_number]
+		spacer = ' ' * (self.col_number - 1)
+		highlighter = '^' * 3
+		return '\n%s\n%s%s\n' % (
+			'\n'.join(surrounding_lines),
+			spacer,
+			highlighter
+		)
 
 class MpdlInstruction:
 	"""Abstract MPDL instruction"""
