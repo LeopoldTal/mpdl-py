@@ -18,3 +18,32 @@ class TestMpdl:
 	def test_failure(self):
 		with pytest.raises(InterpreterFailureException):
 			mpdl.run('v50', 10, 0)
+
+class TestParamValidation:
+	def test_non_numeric_border(self):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 10, 'a')
+	
+	def test_non_integer_border(size):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 256, 0.5)
+	
+	def test_negative_border(self):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 10, -1)
+	
+	def test_non_numeric_size(size):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 'a', 0)
+	
+	def test_non_integer_size(size):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 10.5, 0)
+	
+	def test_zero_size(self):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 0, 0)
+	
+	def test_border_bigger_than_canvas(self):
+		with pytest.raises(InterpreterFailureException):
+			mpdl.run('c1', 256, 300)
