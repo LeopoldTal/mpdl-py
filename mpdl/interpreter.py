@@ -10,6 +10,7 @@ class MpdlInterpreter:
 			-> interpreter"""
 		self.instructions = instructions
 		self.canvas_size = canvas_size
+		self.context = None
 		self.stack = [
 			BlankRectangle(
 				border_width // 2,
@@ -24,14 +25,20 @@ class MpdlInterpreter:
 		"""interpreter.run() -> list of rectangles
 		
 		Execute MPDL instructions and return the list of resulting rectangles"""
+		if len(self.instructions) == 0:
+			raise IncompletePaintingError('No instructions found.')
+		
 		while len(self.instructions) > 0:
 			self.step()
 		
 		if len(self.stack) > 0:
+			nb_rectangles = len(self.stack)
 			raise IncompletePaintingError(
-				# TODO: pluralisation
-				'%d rectangles left unpainted' % (len(self.stack),),
-				None # FIXME: context
+				'%d rectangle%s left unpainted' % (
+					nb_rectangles,
+					'' if nb_rectangles == 1 else 's'
+				),
+				self.context
 			)
 		
 		return self.painted_rectangles
@@ -41,9 +48,10 @@ class MpdlInterpreter:
 		
 		Step through one instruction"""
 		instruction = self.instructions.pop(0)
+		self.context = instruction.context
 		if len(self.stack) == 0:
 			raise NoRectangleError(
 			'No rectangle available for command %s' % (instruction,),
-			None # FIXME: context
+			self.context
 		)
 		instruction.apply(self.stack, self.painted_rectangles)
